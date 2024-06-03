@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import MainMapScreen from "./Screens/MainMapScreen";
+import Register from "./Screens/RegisterScreen";
+import Notifications from "./Screens/NotificationsScreen";
+import { supabase } from "./db";
+import LeaderboardScreen from "./Screens/LeaderboardScreen";
+import ObjectivesScreen from "./Screens/ObjectivesScreen";
+import BottomTabMenu from "./BottomTabMenu";
+import Router from "./Router";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+  const [user, setUser] = useState(null); // State to hold user data
 
-export default App;
+  // useEffect(() => {
+  //   checkUser();
+  // }, []);
+
+  // const checkUser = async () => {
+  //   const session = supabase.auth.session();  // Check if there's an existing session
+  //   setUser(session?.user ?? null);
+  // };
+
+  const handleRegistration = (userData) => {
+    setUser(userData); // Set user data upon registration
+  };
+
+  // return <ObjectivesScreen />;
+  // return <Notifications />;
+
+  // return <LeaderboardScreen />;
+
+  // if (!user) {
+  // If no user data, show the registration form
+  // return <Register onRegistered={handleRegistration} />;
+  // }
+
+  // If user is registered, show the map
+  return <MainMapScreen />;
+};
+
+const AppWrapper = ({ children }) => (
+  <>
+    <Router />
+  </>
+);
+
+export default AppWrapper;
