@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/barcrawl/static/css/main.3e45fa30.css",
+    "main.js": "/barcrawl/static/js/main.f2034c27.js",
+    "static/js/952.cd338553.chunk.js": "/barcrawl/static/js/952.cd338553.chunk.js",
+    "static/js/453.92aab9b8.chunk.js": "/barcrawl/static/js/453.92aab9b8.chunk.js",
+    "index.html": "/barcrawl/index.html",
+    "main.3e45fa30.css.map": "/barcrawl/static/css/main.3e45fa30.css.map",
+    "main.f2034c27.js.map": "/barcrawl/static/js/main.f2034c27.js.map",
+    "952.cd338553.chunk.js.map": "/barcrawl/static/js/952.cd338553.chunk.js.map",
+    "453.92aab9b8.chunk.js.map": "/barcrawl/static/js/453.92aab9b8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3e45fa30.css",
+    "static/js/main.f2034c27.js"
+  ]
+}
