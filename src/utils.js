@@ -27,19 +27,19 @@ export const getMapMarker = (category) => {
 
   switch (category) {
     case "Bar":
-      return "/images/vector-markers/bar-rounded.svg";
+      return "images/vector-markers/bar-rounded.svg";
     case "Restaurant":
-      return "/images/vector-markers/food-rounded.svg";
+      return "images/vector-markers/food-rounded.svg";
     case "Brewery":
-      return "/images/vector-markers/beer-rounded.svg";
+      return "images/vector-markers/beer-rounded.svg";
     case "Marketplace":
-      return "/images/vector-markers/market-rounded.svg";
+      return "images/vector-markers/market-rounded.svg";
     case "Pizza":
-      return "/images/vector-markers/pizza-rounded.svg";
+      return "images/vector-markers/pizza-rounded.svg";
     case "Coffee Shop":
-      return "/images/vector-markers/coffee-rounded.svg";
+      return "images/vector-markers/coffee-rounded.svg";
     default:
-      return "/images/markers/default.svg";
+      return "images/markers/default.svg";
   }
 };
 

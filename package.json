@@ -2,6 +2,7 @@
   "name": "baltimore-food-drinks-map",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://cphoover.github.io/barcrawl/",
   "dependencies": {
     "@supabase/supabase-js": "^2.43.4",
     "@testing-library/jest-dom": "^5.17.0",
@@ -23,6 +24,8 @@
     "yet-another-react-lightbox": "^3.19.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
