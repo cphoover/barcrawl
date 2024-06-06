@@ -13,6 +13,50 @@ import { debug, getUserId } from "../utils";
 // Create context
 const CompletionsContext = createContext();
 
+const fetchCompletionsOutside = async ({
+  onlyNew,
+  lastFetchTime,
+  setCompletions,
+  setLastFetchTime,
+}) => {
+  debug("fetchCompletions async");
+  const { data, error } = await // onlyNew
+  // ? supabase
+  //     .from("completions")
+  //     .select(
+  //       `
+  //   *,
+  //   user:user_id (username, avatar_small)
+  // `
+  //     )
+  //     .gt("created_at", lastFetchTime)
+  // :
+  supabase.from("completions").select(
+    `*,
+      user:user_id (username, avatar_small)
+    `
+  );
+
+  if (error) {
+    console.error("Error fetching completions", error);
+  } else {
+    setCompletions((prevCompletions) => {
+      return onlyNew
+        ? [
+            ...prevCompletions,
+            ...data.filter(
+              (d) =>
+                !prevCompletions.some(
+                  (prevCompletion) => prevCompletion.id === d.id
+                )
+            ),
+          ]
+        : data;
+    });
+    // setLastFetchTime(new Date().toISOString());
+  }
+};
+
 export const CompletionsProvider = ({ children }) => {
   const [completions, setCompletions] = useState([]);
   const myID = getUserId();
@@ -30,52 +74,62 @@ export const CompletionsProvider = ({ children }) => {
     setLastVisited(now);
   };
 
+  // const fetchCompletions = useCallback(
+  //   async (onlyNew) => {
+  //     debug("fetchCompletions async");
+  //     const { data, error } = await (onlyNew
+  //       ? supabase
+  //           .from("completions")
+  //           .select(
+  //             `
+  //       *,
+  //       user:user_id (username, avatar_small)
+  //     `
+  //           )
+  //           .gt("created_at", lastFetchTime)
+  //       : supabase.from("completions").select(
+  //           `*,
+  //       user:user_id (username, avatar_small)
+  //     `
+  //         ));
+
+  //     if (error) {
+  //       console.error("Error fetching completions", error);
+  //     } else {
+  //       setCompletions((prevCompletions) => {
+  //         return onlyNew
+  //           ? [
+  //               ...prevCompletions,
+  //               ...data.filter(
+  //                 (d) =>
+  //                   !prevCompletions.some(
+  //                     (prevCompletion) => prevCompletion.id === d.id
+  //                   )
+  //               ),
+  //             ]
+  //           : data;
+  //       });
+  //       setLastFetchTime(new Date().toISOString());
+  //     }
+  //   },
+  //   [setCompletions, setLastFetchTime, lastFetchTime]
+
+  // );
   const fetchCompletions = useCallback(
-    async (onlyNew) => {
-      debug("fetchCompletions async");
-      const { data, error } = await (onlyNew
-        ? supabase
-            .from("completions")
-            .select(
-              `
-        *,
-        user:user_id (username, avatar_small)
-      `
-            )
-            .gt("created_at", lastFetchTime)
-        : supabase.from("completions").select(
-            `*,
-        user:user_id (username, avatar_small)
-      `
-          ));
-
-     
-
-      if (error) {
-        console.error("Error fetching completions", error);
-      } else {
-        setCompletions((prevCompletions) => {
-          return onlyNew
-            ? [
-                ...prevCompletions,
-                ...data.filter(
-                  (d) =>
-                    !prevCompletions.some(
-                      (prevCompletion) => prevCompletion.id === d.id
-                    )
-                ),
-              ]
-            : data;
-        });
-        setLastFetchTime(new Date().toISOString());
-      }
-    },
-    [setCompletions, setLastFetchTime, lastFetchTime]
+    (onlyNew) =>
+      fetchCompletionsOutside({
+        onlyNew,
+        lastFetchTime,
+        setCompletions,
+        setLastFetchTime,
+      }),
+    [lastFetchTime, setCompletions, setLastFetchTime]
   );
 
   useEffect(() => {
     fetchCompletions();
-  }, [fetchCompletions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     // Subscribe to real-time updates using visibility API

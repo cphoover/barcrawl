@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import CameraIcon from "../icons/camera";
 import { Container, Content, Terms, AppHeader } from "../Layout";
@@ -97,17 +97,21 @@ const BackButton = styled.button`
 `;
 
 const NotificationsPage = () => {
-  const { completions } = useCompletions();
-  debug("completions", completions);
-  const { updateLastVisited } = useCompletions();
-  const { userId } = useMyUser();
-  const { otherUsersDetails } = useOtherUsers();
+  const { completions, updateLastVisited } = useCompletions();
 
-  const reversedOrder = [...completions].reverse();
+  // debug("completions", completions);
+  // const { updateLastVisited } = useCompletions();
+  const { userId } = useMyUser();
+
+  const reversedOrder = useMemo(() => {
+    return [...completions].reverse();
+  }, [completions]);
+
+
 
   useEffect(() => {
     updateLastVisited();
-  });
+  }, []);
 
   return (
     <>
@@ -117,11 +121,7 @@ const NotificationsPage = () => {
           <NotificationsList>
             {reversedOrder.map((completion) => {
               debug(completion.user_id);
-              debug("otherUsersDetails", otherUsersDetails);
-              debug(
-                "user detail",
-                otherUsersDetails.get(completion.user_id)
-              );
+
               return (
                 <>
                   {getNotification(
@@ -133,7 +133,7 @@ const NotificationsPage = () => {
                       className={completion.user_id === userId ? "active" : ""}
                     >
                       <AirHornIcon />
-                      {formatLastUpdatedTime(completion)} - 
+                      {formatLastUpdatedTime(completion)} -{" "}
                       {getNotification(
                         completion.completion_id,
                         completion.user.username

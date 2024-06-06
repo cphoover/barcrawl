@@ -32,9 +32,8 @@ export const MyUserProvider = ({ children }) => {
       } else {
         console.log("~~~b");
         debug("refreshMyUserData data", data);
-        setMyDetails(data, () => {
-          setUserLoaded(true);
-        });
+        setMyDetails(data);
+        setUserLoaded(true);
       }
     };
 

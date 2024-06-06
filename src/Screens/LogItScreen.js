@@ -130,7 +130,9 @@ const LogItScreen = ({ objectiveId, onSave }) => {
     return uploadData.path;
   };
 
+  const disabled = !notes && !photo;
   const handleSave = async () => {
+    if (disabled) return;
     setIsSaving(true);
     if (!position) {
       alert(
@@ -223,7 +225,8 @@ const LogItScreen = ({ objectiveId, onSave }) => {
             <br />
             <SaveButton
               onClick={handleSave}
-              enabled={!isSaving && (notes || preview)}
+              enabled={!disabled}
+              disabled={disabled}
             >
               {isSaving ? "Saving..." : "Save"}
             </SaveButton>

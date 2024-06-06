@@ -49,5 +49,18 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script src="/service-worker.js" ></script>
+    <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
+    <script>
+      const beamsClient = new PusherPushNotifications.Client({
+        instanceId: "2cd4d78e-c1fd-466d-b080-b5df71d91686",
+      });
+
+      beamsClient
+        .start()
+        .then(() => beamsClient.addDeviceInterest("hello"))
+        .then(() => console.log("Successfully registered and subscribed!"))
+        .catch(console.error);
+    </script>
   </body>
 </html>
