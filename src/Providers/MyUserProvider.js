@@ -13,10 +13,10 @@ export const useMyUser = () => {
 };
 
 export const MyUserProvider = ({ children }) => {
-  const [myDetails, setMyDetails] = useState({});
+  const [userLoaded, setUserLoaded] = useState(false);
+  const [myDetails, setMyDetails] = useState(null);
   const userId = getUserId();
 
-  
   useEffect(() => {
     const refreshMyUserData = async () => {
       const { data, error } = await supabase
@@ -25,25 +25,27 @@ export const MyUserProvider = ({ children }) => {
         .eq("user_id", userId)
         .single();
 
-        
-
       if (error) {
+        console.log("~~~a");
+        setUserLoaded(true);
         console.error("Error fetching user data:", error);
       } else {
+        console.log("~~~b");
         debug("refreshMyUserData data", data);
-        setMyDetails(data);
+        setMyDetails(data, () => {
+          setUserLoaded(true);
+        });
       }
     };
 
     refreshMyUserData();
   }, [userId]);
 
-  
   const iAmRegistered = myDetails?.registered === true;
 
   return (
     <MyUserContext.Provider
-      value={{ userId, myDetails, iAmRegistered, setMyDetails }}
+      value={{ userId, userLoaded, myDetails, iAmRegistered, setMyDetails }}
     >
       {children}
     </MyUserContext.Provider>

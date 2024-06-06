@@ -8,17 +8,17 @@ import React, {
 } from "react";
 import { supabase } from "../db";
 import { objectivesMap } from "../objectives";
-import { debug } from "../utils";
+import { debug, getUserId } from "../utils";
 
 // Create context
 const CompletionsContext = createContext();
 
 export const CompletionsProvider = ({ children }) => {
   const [completions, setCompletions] = useState([]);
+  const myID = getUserId();
   const [lastVisited, setLastVisited] = useState(() =>
     localStorage.getItem("lastVisitedNotifications")
   );
-  const [unreadCount, setUnreadCount] = useState(0);
 
   const [lastFetchTime, setLastFetchTime] = useState(() =>
     new Date().toISOString()
@@ -49,7 +49,7 @@ export const CompletionsProvider = ({ children }) => {
       `
           ));
 
-      debug("fetchCompletions data", { data, onlyNew, lastFetchTime });
+     
 
       if (error) {
         console.error("Error fetching completions", error);
@@ -70,7 +70,7 @@ export const CompletionsProvider = ({ children }) => {
         setLastFetchTime(new Date().toISOString());
       }
     },
-    [setCompletions, setLastFetchTime]
+    [setCompletions, setLastFetchTime, lastFetchTime]
   );
 
   useEffect(() => {
@@ -99,7 +99,7 @@ export const CompletionsProvider = ({ children }) => {
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "completions" },
-        (payload) => {
+        () => {
           fetchCompletions(true);
         }
       )
@@ -157,15 +157,38 @@ export const CompletionsProvider = ({ children }) => {
       .sort((a, b) => b.scores - a.scores);
   }, [completions]);
 
+  const completedObjectives = useMemo(() => {
+    return new Set(
+      completions
+        .filter((c) => c.user_id === myID)
+        .map((completion) => completion.completion_id)
+    );
+  }, [completions, myID]);
+
+  console.log("completedObjectives", {
+    completedObjectives,
+    myID,
+    completions,
+  });
+
   debug("unreadCountValue", {
     unreadCountValue,
     completions,
     lastVisited,
   });
 
+  console.log("completions", {
+    completions,
+  });
   return (
     <CompletionsContext.Provider
-      value={{ completions, updateLastVisited, unreadCountValue, userScores }}
+      value={{
+        completions,
+        updateLastVisited,
+        unreadCountValue,
+        userScores,
+        completedObjectives,
+      }}
     >
       {children}
     </CompletionsContext.Provider>

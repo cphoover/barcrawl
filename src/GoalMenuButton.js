@@ -16,7 +16,7 @@ const ButtonCircle = styled.div`
   // border: 4px solid rgba(255,255,255,.5);
   border: 5px solid rgba(255, 255, 255, 0.5);
   ${(props) =>
-    props.onMap &&
+    props.isMap &&
     `  bottom: 160px;
     right: 10px;
     position: absolute;`}
@@ -37,9 +37,9 @@ const ButtonCircleShadow = styled.div`
   border-radius: 50%;
   position: absolute;
 `;
-const GoalMenuButton = ({ onClick, onMap = true }) => {
+const GoalMenuButton = ({ onClick, isMap = true }) => {
   return (
-    <ButtonCircle onMap={onMap} onClick={onClick} className="goal-button">
+    <ButtonCircle isMap={isMap} onClick={onClick} className="goal-button">
       <ButtonCircleShadow> </ButtonCircleShadow>
       <StarIcon />
     </ButtonCircle>

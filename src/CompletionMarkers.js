@@ -1,25 +1,8 @@
-import { isRecentUpdate } from "./utils.js";
 // import { Marker, Popup } from
 import { Marker } from "react-map-gl";
 import PersonMarker from "./PersonMarker.js";
-import PersonAvatar from "./PersonAvatar.js";
-import { useOnlineUsers } from "./Providers/OnlineUsersProvider.js";
-import randomColor from "randomcolor";
-import { useOtherUsers } from "./Providers/OtherUsersProvider.js";
 import { useCompletions } from "./Providers/CompletionsProvider.js";
 
-const userColors = new Map();
-const getPastelColor = (userId) => {
-  if (userColors.has(userId)) {
-    return userColors.get(userId);
-  } else {
-    const color = randomColor({
-      luminosity: "light",
-    });
-    userColors.set(userId, color);
-    return color;
-  }
-};
 
 const CompletionMarkers = () => {
   const { completions } = useCompletions();

@@ -1,21 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import CameraIcon from "../icons/camera";
-import NotificationsIcon from "../icons/notification";
 import {
   Container,
-  Header,
-  Title,
   Content,
-  Label,
-  Input,
-  Button,
-  Terms,
-  AppHeader,
   SectionTitle,
 } from "../Layout";
-import PersonMarker from "../PersonAvatar";
-import GearIcon from "../icons/gear";
 import MainHeader from "../MainHeader";
 import ChekmarkIcon from "../icons/checkmark";
 import RightArrowIcon from "../icons/right-arrow";
@@ -24,6 +13,7 @@ import BottomTabMenu from "../BottomTabMenu";
 import objectivesData from "../objectives";
 import LogItScreen from "./LogItScreen";
 import { debug } from "../utils";
+import { useCompletions } from "../Providers/CompletionsProvider";
 
 const BackButton = styled.button`
   background: none;
@@ -119,6 +109,7 @@ const RightIcon = styled.div`
 
 const ObjectivesScreen = () => {
   const [selectedObjective, setSelectedObjective] = useState(null);
+
   if (selectedObjective) {
     return (
       <LogItScreen
@@ -138,6 +129,7 @@ const ObjectivesScreen = () => {
 };
 
 const ObjectivesList = ({ onSelectObjective }) => {
+  const { completedObjectives } = useCompletions();
   return (
     <>
       <Container>
@@ -146,27 +138,26 @@ const ObjectivesList = ({ onSelectObjective }) => {
           <SectionTitle>Record your debauchery</SectionTitle>
 
           <CardList>
-            {objectivesData.map((objective, index) => (
-              <CardLine
-                key={index}
-                className={objective.completed ? "active" : ""}
-                onClick={() => onSelectObjective(objective.id)}
-              >
-                <ObjectiveTitle>
-                  {objective.title}{" "}
-                  <RightIcon>
-                    {objective.completed ? (
-                      <ChekmarkIcon />
-                    ) : (
-                      <RightArrowIcon />
-                    )}
-                  </RightIcon>
-                </ObjectiveTitle>
-                <ObjectiveDescription>
-                  {objective.points} pts - {objective.description}
-                </ObjectiveDescription>
-              </CardLine>
-            ))}
+            {objectivesData.map((objective, index) => {
+              const completed = completedObjectives.has(objective.id);
+              return (
+                <CardLine
+                  key={index}
+                  className={completed ? "active" : ""}
+                  onClick={() => onSelectObjective(objective.id)}
+                >
+                  <ObjectiveTitle>
+                    {objective.title}{" "}
+                    <RightIcon>
+                      {completed ? <ChekmarkIcon /> : <RightArrowIcon />}
+                    </RightIcon>
+                  </ObjectiveTitle>
+                  <ObjectiveDescription>
+                    {objective.points} pts - {objective.description}
+                  </ObjectiveDescription>
+                </CardLine>
+              );
+            })}
           </CardList>
 
           <Legal />

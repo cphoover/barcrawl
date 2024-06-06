@@ -44,7 +44,7 @@ const NotesInput = styled.textarea`
   border: 1px solid #dddddd;
   border-radius: 24px;
   background-color: #ffffff;
-  font-size: 14px;
+  font-size: 16px;
   font-family: "Montserrat";
   font-weight: 500;
   line-height: 19px;
@@ -198,7 +198,7 @@ const LogItScreen = ({ objectiveId, onSave }) => {
         <MainHeader title="Check It Off" />
         <Content>
           <TopSection>
-            <GoalMenuButton onMap={false} />
+            <GoalMenuButton isMap={false} />
             <Title>{objective.title}</Title>
             <Description>{objective.description}</Description>
             <br />

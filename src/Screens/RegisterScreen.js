@@ -149,9 +149,11 @@ const SignupPage = () => {
         console.error("could not refresh user data");
       }
       debug("User registered:", data);
-      setMyDetails(payload);
-      localStorage.setItem("user", JSON.stringify(data));
-      setTimeout(() => goto("map"), 0);
+      setMyDetails(() => {
+        setTimeout(() => goto("map"), 100);
+        return payload;
+      });
+
       // onRegistered(data[0]);
     }
   };
@@ -189,10 +191,7 @@ const SignupPage = () => {
               registerUser();
             }}
           >
-         
-            {!username || !avatar
-              ? "Please fill out the form"
-              : startMsg }
+            {!username || !avatar ? "Please fill out the form" : startMsg}
           </Button>
           <Terms>Terms of Service | Privacy Policy</Terms>
         </Content>

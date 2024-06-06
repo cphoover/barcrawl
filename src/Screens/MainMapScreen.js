@@ -15,6 +15,8 @@ import MainHeader from "../MainHeader";
 import BottomTabMenu from "../BottomTabMenu";
 import { useMapFilters } from "../Providers/MapFiltersProvider";
 import CompletionMarkers from "../CompletionMarkers";
+import GoalMenuButton from "../GoalMenuButton";
+import { useRouter } from "../Router";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -22,13 +24,11 @@ const Wrapper = styled.div`
 `;
 
 function MainMapScreen() {
+  const { goto } = useRouter();
   // const [onlineUsers, setOnlineUsers] = useState(new Set()); // Use a Set for online users
 
-  const {
-    selectedLocation,
-    setSelectedLocation,
-    filteredLocations,
-  } = useMapFilters();
+  const { selectedLocation, setSelectedLocation, filteredLocations } =
+    useMapFilters();
 
   return (
     <>
@@ -36,7 +36,6 @@ function MainMapScreen() {
         <MainHeader title="barcrawl" />
 
         <Wrapper>
-      
           <CustomMap>
             {filteredLocations.map((location, idx) => (
               <Marker
@@ -71,6 +70,11 @@ function MainMapScreen() {
           </CustomMap>
         </Wrapper>
       </Container>
+      <GoalMenuButton
+        onClick={() => {
+          goto("objectives");
+        }}
+      />
       <BottomTabMenu />
     </>
   );

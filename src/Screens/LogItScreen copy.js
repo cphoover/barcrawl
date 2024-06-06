@@ -150,7 +150,7 @@ const LogItScreen = () => {
         <MainHeader title="Check It Off" />
         <Content>
           <TopSection>
-            <GoalMenuButton onMap={false} />
+            <GoalMenuButton isMap={false} />
             <Title>Karaoke Star</Title>
             <Description>
               Sing a love song solo in a crowded karaoke bar.

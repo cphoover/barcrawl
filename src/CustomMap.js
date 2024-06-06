@@ -1,5 +1,4 @@
 import React, {
-  useRef,
   useState,
   createContext,
   useContext,
@@ -8,19 +7,11 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import { debounce } from "lodash";
-import MapboxMap, {
-  NavigationControl,
-  Popup,
-  GeolocateControl,
-} from "react-map-gl";
+import MapboxMap, { NavigationControl } from "react-map-gl";
 import cn from "classnames";
 import "mapbox-gl/dist/mapbox-gl.css";
-import LocationSkewedIcon from "./icons/location-skewed";
-import LocationVerticalIcon from "./icons/location-vertical";
 import { useLocation } from "./Providers/LocationProvider";
 import LocationIcon from "./icons/location";
-import GoalMenuButton from "./GoalMenuButton";
-import { useRouter } from "./Router";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoiY3Bob292ZXIiLCJhIjoiY2x3amhsMXZlMTFjdDJpcW5rb3Z1bWw3bSJ9.zim9MR8_RVDNiVDmw5E4-Q"; // Replace with your Mapbox token
@@ -87,8 +78,6 @@ const LocationButton = styled.div`
 function animateMapToLocation({ map, position }) {
   if (!position) return;
 
-  
-
   map.flyTo({
     center: [position[1], position[0]],
     zoom: 13,
@@ -97,9 +86,6 @@ function animateMapToLocation({ map, position }) {
 }
 
 const CustomMap = ({ children, ...rest }) => {
-  const mapRef = useRef(null);
-
-  const { goto } = useRouter();
   const [followUser, setFollowUser] = useState(false);
   const position = useLocation();
 
@@ -134,7 +120,6 @@ const CustomMap = ({ children, ...rest }) => {
   }, [loadedMap, markersWithLayers]);
 
   const registerMarker = useCallback((markerWithLayer) => {
-    
     setMarkersWithLayers((prevMarkers) => {
       const newMarkers = new Map(prevMarkers);
       newMarkers.set(markerWithLayer.marker, markerWithLayer.layerOrder);
@@ -173,11 +158,7 @@ const CustomMap = ({ children, ...rest }) => {
 
           {/* <div></div>
           </div> */}
-          <GoalMenuButton
-            onClick={() => {
-              goto("objectives");
-            }}
-          />
+
           {children}
         </MapboxMap>
       </MapContext.Provider>
