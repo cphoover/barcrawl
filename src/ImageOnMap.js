@@ -58,7 +58,6 @@ const MapWithMarkersInstance = () => {
   ];
 
   const handleMarkerClick = useCallback((markerData) => {
-    console.log(`Marker ${markerData.id} clicked`);
     setCurrentPopup(markerData);
   }, []);
 

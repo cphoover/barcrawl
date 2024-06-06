@@ -12,6 +12,7 @@ import {
   Terms,
   AppHeader,
 } from "../Layout";
+import Legal from "../Legal";
 
 const NotificationsList = styled.ul`
   list-style-type: none;
@@ -121,7 +122,7 @@ const RecordGoalScreen = () => {
             );
           })}
         </NotificationsList>
-        <Terms>Terms of Service | Privacy Policy</Terms>
+        <Legal />
       </Content>
     </Container>
   );

@@ -13,7 +13,8 @@ import {
   AppHeader,
   SectionTitle,
 } from "../Layout";
-import PersonMarker from "../PersonMarker";
+import PersonMarker from "../PersonAvatar";
+import Legal from "../Legal";
 
 const BackButton = styled.button`
   background: none;
@@ -151,7 +152,7 @@ const LeaderboardScreen = () => {
           ))}
         </CardList>
 
-        <Terms>Terms of Service | Privacy Policy</Terms>
+       <Legal />
       </Content>
     </Container>
   );

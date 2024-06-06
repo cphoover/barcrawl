@@ -1,93 +1,76 @@
-import { useEffect, useState, useMemo } from "react";
-import { getUserId } from "./utils.js";
-import { supabase } from "./db";
+import { debug, isRecentUpdate } from "./utils.js";
 // import { Marker, Popup } from
 import { Marker } from "react-map-gl";
-import { redIcon } from "./icons";
-import PersonMarker from "./PersonMarker.js";
+import PersonMarker from "./PersonMarker";
+import PersonAvatar from "./PersonAvatar";
+import { useOnlineUsers } from "./Providers/OnlineUsersProvider.js";
+import randomColor from "randomcolor";
+import { useOtherUsers } from "./Providers/OtherUsersProvider";
 
-const OtherUsersMarkers = ({ onlineUsers }) => {
-  const [otherUsers, setOtherUsers] = useState([]);
-  const userId = getUserId(); // Get the user ID
+// const getPastelColor = memoize((userId) => {
+//   return (
+//     "hsl(" +
+//     360 * Math.random() +
+//     "," +
+//     (25 + 70 * Math.random()) +
+//     "%," +
+//     (85 + 10 * Math.random()) +
+//     "%)"
+//   );
+// });
 
-  const filteredUsers = useMemo(
-    () => otherUsers.filter((user) =>
-    onlineUsers.has(user.user_id) && user.user_id !== userId
-  ), [onlineUsers, otherUsers, userId]);
+const userColors = new Map();
+const getPastelColor = (userId) => {
+  if (userColors.has(userId)) {
+    return userColors.get(userId);
+  } else {
+    const color = randomColor({
+      luminosity: "light",
+    });
+    userColors.set(userId, color);
+    return color;
+  }
+};
 
-  useEffect(() => {
-    console.log('onlineUsers++++', [...onlineUsers])
-    const fetchOtherUsers = async () => {
-      console.log("asdf fetchOtherUsers", { onlineUsers, userId });
-      const { data, error } = await supabase
-        .from("userPositions")
-        .select("*")
-        .in("user_id", [...onlineUsers])
-        .neq("user_id", userId); // Exclude the current user's marker
-      if (error) {
-        console.error("Error fetching other users:", error.message);
-      } else {
-        setOtherUsers(data);
-      }
-    };
-
-    fetchOtherUsers();
-
-    const channel = supabase
-      .channel("userPositions")
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "userPositions" },
-        (payload) => {
-          console.log("insert", { payload });
-          setOtherUsers((users) => [...users, payload.new]);
-        }
-      )
-      .on(
-        "postgres_changes",
-        { event: "UPDATE", schema: "public", table: "userPositions" },
-        (payload) => {
-          console.log(
-            "update",
-            payload.new.user_id,
-            payload.new.latitude,
-            payload.new.longitude
-          );
-          setOtherUsers((users) => {
-            const userExists = users.some(
-              (user) => user.user_id === payload.new.user_id
-            );
-            if (userExists) {
-              return users.map((user) =>
-                user.user_id === payload.new.user_id ? payload.new : user
-              );
-            } else {
-              return [...users, payload.new];
-            }
-          });
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, [onlineUsers, userId]);
+const OtherUsersMarkers = () => {
+  const onlineUsers = useOnlineUsers();
+  const { otherUsersPositions, UserHelpers } = useOtherUsers();
+  debug("otherUsers", otherUsersPositions);
 
   return (
     <>
-      {filteredUsers.map((user) => (
-        <Marker
-          key={user.id}
-          latitude={user.latitude}
-          longitude={user.longitude}
-        >
-          <PersonMarker
-            photoUrl={user.photoUrl || "https://picsum.photos/200?asdf"}
-          />
-          {/* <Popup>Another user is here</Popup> */}
-        </Marker>
-      ))}
+      {otherUsersPositions.map((userPosition) => {
+        const playerColor = getPastelColor(userPosition.user_id);
+        return (
+          <Marker
+            key={userPosition.user_id}
+            latitude={userPosition.latitude}
+            longitude={userPosition.longitude}
+          >
+            {/* 
+             Really we need to send a heartbeat or something...
+             actually probably the best way is if we have an update on position in the last 2 minutes make it active...
+             otherwise let's make it inactive
+            */}
+            {onlineUsers.has(userPosition.user_id) ||
+            isRecentUpdate(userPosition) ? (
+              <PersonAvatar
+                photoUrl={UserHelpers.getSmallAvatar(userPosition.user_id)}
+                color={playerColor}
+                user={userPosition}
+              />
+            ) : (
+              <PersonMarker
+                photoUrl={UserHelpers.getSmallAvatar(userPosition.user_id)}
+                color={playerColor}
+                user={userPosition}
+              />
+            )}
+
+            {/* <Popup>Another user is here</Popup> */}
+          </Marker>
+        );
+      })}
     </>
   );
 };

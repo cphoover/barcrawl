@@ -24,26 +24,25 @@ const CustomMarker = ({
   );
 
   useEffect(() => {
-    console.log("custom marker use effect+++");
+    
     if (markerRef.current) {
       return;
     }
     const el = iconContainerRef.current;
     el.style.cursor = "pointer";
 
-
     const marker = new mapboxgl.Marker(el).setLngLat([longitude, latitude]);
 
     el.addEventListener("click", handleClick);
 
     markerRef.current = marker;
-    registerMarker({ marker, layerOrder });
+    registerMarker({ marker, layerOrder }); 
 
     return () => {
       // el.removeEventListener("click", handleClick);
       marker.remove();
     };
-  }, [handleClick, latitude, layerOrder, longitude, onClick, registerMarker]);
+  }, []);
 
   useEffect(() => {
     if (markerRef.current) {

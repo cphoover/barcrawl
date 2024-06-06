@@ -1,5 +1,6 @@
 export const locations = [
   {
+    id: "location-0",
     Name: "Woodberry Kitchen Tavern",
     Neighborhood: "Woodberry",
     Type: "American, Farm-to-Table",
@@ -11,6 +12,7 @@ export const locations = [
     Lon: -76.6453523,
   },
   {
+    id: "location-1",
     Name: "Marie Louise Bistro",
     Neighborhood: "Mount Vernon",
     Type: "French Bistro",
@@ -22,8 +24,9 @@ export const locations = [
     Lon: -76.6159377,
   },
   {
+    id: "location-2",
     Name: "The Copper Shark",
-    Neighborhood: "Inner Harbor",
+    Neighborhood: "Locust Point",
     Type: "Seafood, American",
     Price: "$$$",
     Category: "Restaurant",
@@ -34,6 +37,7 @@ export const locations = [
     Lon: -76.6006199,
   },
   {
+    id: "location-3",
     Name: "Shoyou Sushi",
     Neighborhood: "Federal Hill",
     Type: "Sushi, Japanese",
@@ -45,6 +49,7 @@ export const locations = [
     Lon: -76.6118961,
   },
   {
+    id: "location-4",
     Name: "Urban Oyster",
     Neighborhood: "Hampden",
     Type: "Seafood, Oyster Bar",
@@ -56,6 +61,7 @@ export const locations = [
     Lon: -76.6321962,
   },
   {
+    id: "location-5",
     Name: "La Calle",
     Neighborhood: "Fells Point",
     Type: "Mexican, Upscale",
@@ -67,6 +73,7 @@ export const locations = [
     Lon: -76.5930919,
   },
   {
+    id: "location-6",
     Name: "Peter's Inn",
     Neighborhood: "Fells Point",
     Type: "American, Contemporary",
@@ -78,6 +85,7 @@ export const locations = [
     Lon: -76.5915703,
   },
   {
+    id: "location-7",
     Name: "The Arthouse",
     Neighborhood: "Hampden",
     Type: "Pizza, Italian",
@@ -89,6 +97,7 @@ export const locations = [
     Lon: -76.6343312,
   },
   {
+    id: "location-8",
     Name: "Water for Chocolate",
     Neighborhood: "Upper Fells Point",
     Type: "American",
@@ -100,6 +109,7 @@ export const locations = [
     Lon: -76.5905237,
   },
   {
+    id: "location-9",
     Name: "Thai Arroy",
     Neighborhood: "Federal Hill",
     Type: "Thai",
@@ -111,6 +121,7 @@ export const locations = [
     Lon: -76.612267,
   },
   {
+    id: "location-10",
     Name: "Charming Elephant",
     Neighborhood: "Fells Point",
     Type: "Laotian/Thai",
@@ -122,6 +133,7 @@ export const locations = [
     Lon: -76.5836353,
   },
   {
+    id: "location-11",
     Name: "Mayuree Thai",
     Neighborhood: "Canton",
     Type: "Thai",
@@ -133,8 +145,9 @@ export const locations = [
     Lon: -76.5836441,
   },
   {
+    id: "location-12",
     Name: "Bmore Taqueria",
-    Neighborhood: "Locust Point",
+    Neighborhood: "Fells Point",
     Type: "Mexican",
     Price: "$$",
     Category: "Restaurant",
@@ -144,6 +157,7 @@ export const locations = [
     Lon: -76.5919206,
   },
   {
+    id: "location-13",
     Name: "Tortilleria Sinaloa",
     Neighborhood: "Fells Point",
     Type: "Mexican",
@@ -155,6 +169,7 @@ export const locations = [
     Lon: -76.5925167,
   },
   {
+    id: "location-14",
     Name: "LP Steamers",
     Neighborhood: "Locust Point",
     Type: "Crabs, Seafood",
@@ -166,6 +181,7 @@ export const locations = [
     Lon: -76.5986557,
   },
   {
+    id: "location-15",
     Name: "The Food Market",
     Neighborhood: "Hampden",
     Type: "American, Contemporary",
@@ -177,6 +193,7 @@ export const locations = [
     Lon: -76.6332417,
   },
   {
+    id: "location-16",
     Name: "Mi & Yu Noodles",
     Neighborhood: "Hampden",
     Type: "Noodles, Ramen, Bao Buns",
@@ -188,6 +205,7 @@ export const locations = [
     Lon: -76.6300107,
   },
   {
+    id: "location-17",
     Name: "Clavel",
     Neighborhood: "Remington",
     Type: "Mexican, Mezcaleria",
@@ -199,6 +217,7 @@ export const locations = [
     Lon: -76.6204571,
   },
   {
+    id: "location-18",
     Name: "Little Donna's",
     Neighborhood: "Fells Point",
     Type: "Pizza, Polish, Cocktail Bar",
@@ -210,6 +229,7 @@ export const locations = [
     Lon: -76.5909075,
   },
   {
+    id: "location-19",
     Name: "Papi's Tacos",
     Neighborhood: "Fells Point",
     Type: "Mexican",
@@ -221,6 +241,7 @@ export const locations = [
     Lon: -76.592839,
   },
   {
+    id: "location-20",
     Name: "Cocina Luchadores",
     Neighborhood: "Federal Hill",
     Type: "Mexican",
@@ -232,6 +253,7 @@ export const locations = [
     Lon: -76.5933148,
   },
   {
+    id: "location-21",
     Name: "Matthew's Pizza",
     Neighborhood: "Highlandtown",
     Type: "Pan Pizza",
@@ -243,6 +265,7 @@ export const locations = [
     Lon: -76.5718847,
   },
   {
+    id: "location-22",
     Name: "Underground Pizza",
     Neighborhood: "Mount Vernon",
     Type: "Detroit Style",
@@ -254,6 +277,7 @@ export const locations = [
     Lon: -76.6072655,
   },
   {
+    id: "location-23",
     Name: "Key Neapolitan",
     Neighborhood: "Federal Hill",
     Type: "Neapolitan",
@@ -265,6 +289,7 @@ export const locations = [
     Lon: -76.6051441,
   },
   {
+    id: "location-24",
     Name: "Limoncello Pizzeria",
     Neighborhood: "Little Italy",
     Type: "NY Slice Shop, New York or Sicillian/Grandma",
@@ -272,11 +297,11 @@ export const locations = [
     Category: "Pizza",
     "Yelp URL": "https://www.yelp.com/biz/limoncello-pizzeria-baltimore",
     "Instagram URL": "https://www.instagram.com/limoncellopizzeriabmore/?hl=en",
-
     Lat: 39.271839246277445,
     Lon: -76.60107878926053,
   },
   {
+    id: "location-25",
     Name: "Paulie Gee's Pizza",
     Neighborhood: "Hampden",
     Type: "Wood-fired Pizza",
@@ -288,6 +313,7 @@ export const locations = [
     Lon: -76.628959,
   },
   {
+    id: "location-26",
     Name: "Verde",
     Neighborhood: "Canton",
     Type: "Neapolitan Pizza",
@@ -299,6 +325,7 @@ export const locations = [
     Lon: -76.5825459,
   },
   {
+    id: "location-27",
     Name: "Cross Street Market",
     Neighborhood: "Federal Hill",
     Type: "Variety of Food Stalls",
@@ -310,8 +337,9 @@ export const locations = [
     Lon: -76.6134205,
   },
   {
+    id: "location-28",
     Name: "Broadway Market",
-    Neighborhood: "Fell's Point",
+    Neighborhood: "Fells Point",
     Type: "Variety of Food Stalls",
     Price: "$$",
     Category: "Marketplace",
@@ -321,6 +349,7 @@ export const locations = [
     Lon: -76.5934041,
   },
   {
+    id: "location-29",
     Name: "Mount Vernon Marketplace",
     Neighborhood: "Mount Vernon",
     Type: "Variety of Food Stalls",
@@ -332,6 +361,7 @@ export const locations = [
     Lon: -76.6184806,
   },
   {
+    id: "location-30",
     Name: "R. House",
     Neighborhood: "Remington",
     Type: "Food Hall",
@@ -343,6 +373,7 @@ export const locations = [
     Lon: -76.6223048,
   },
   {
+    id: "location-31",
     Name: "Lexington Market",
     Neighborhood: "Downtown",
     Type: "Variety of Food Stalls",
@@ -354,6 +385,7 @@ export const locations = [
     Lon: -76.6216858,
   },
   {
+    id: "location-32",
     Name: "Spirits Tavern",
     Neighborhood: "Fells Point",
     Type: "Historic Dive Bars, Pool Bar",
@@ -365,6 +397,7 @@ export const locations = [
     Lon: -76.589998,
   },
   {
+    id: "location-33",
     Name: "Club Charles",
     Neighborhood: "Station North",
     Type: "Artsy/Dive Bar",
@@ -376,6 +409,7 @@ export const locations = [
     Lon: -76.61674,
   },
   {
+    id: "location-34",
     Name: "Ottobar",
     Neighborhood: "Remington",
     Type: "Historic Rock/Punk Venue, Pool Tables, Dance Floor",
@@ -387,6 +421,7 @@ export const locations = [
     Lon: -76.6195818,
   },
   {
+    id: "location-35",
     Name: "The Crown",
     Neighborhood: "Station North",
     Type: "Korean Food, Live Music",
@@ -398,6 +433,7 @@ export const locations = [
     Lon: -76.6167294,
   },
   {
+    id: "location-36",
     Name: "Fraziers",
     Neighborhood: "Hampden",
     Type: "Pool Bar, Dive Bar",
@@ -409,6 +445,7 @@ export const locations = [
     Lon: -76.6319971,
   },
   {
+    id: "location-37",
     Name: "Slainte",
     Neighborhood: "Fells Point",
     Type: "Irish Pub",
@@ -421,6 +458,7 @@ export const locations = [
     Lon: -76.5925138,
   },
   {
+    id: "location-38",
     Name: "Brewers Art",
     Neighborhood: "Mount Vernon",
     Type: "Brewery, Tavern, Brewpub",
@@ -432,6 +470,7 @@ export const locations = [
     Lon: -76.6161317,
   },
   {
+    id: "location-39",
     Name: "Jong Kak",
     Neighborhood: "Charles North",
     Type: "Korean BBQ, Upstairs Karaoke Bar",
@@ -443,6 +482,7 @@ export const locations = [
     Lon: -76.6174729,
   },
   {
+    id: "location-40",
     Name: "Bluebird",
     Neighborhood: "Hampden",
     Type: "Cocktail Bar, Whiskey Pub, Speak-easy Vibes",
@@ -454,6 +494,7 @@ export const locations = [
     Lon: -76.6339903,
   },
   {
+    id: "location-41",
     Name: "Lil Phil's",
     Neighborhood: "Canton",
     Type: "Dive Bar",
@@ -465,6 +506,7 @@ export const locations = [
     Lon: -76.5937061,
   },
   {
+    id: "location-42",
     Name: "Alexander's Tavern",
     Neighborhood: "Fells Point",
     Type: "Tavern",
@@ -476,6 +518,7 @@ export const locations = [
     Lon: -76.5935381,
   },
   {
+    id: "location-43",
     Name: "Cat's Eye Pub",
     Neighborhood: "Fells Point",
     Type: "Live Music Pub",
@@ -487,6 +530,7 @@ export const locations = [
     Lon: -76.5915714,
   },
   {
+    id: "location-44",
     Name: "Max's Taphouse",
     Neighborhood: "Fells Point",
     Type: "Craft Beer Bar, Pub",
@@ -498,6 +542,7 @@ export const locations = [
     Lon: -76.5930146,
   },
   {
+    id: "location-45",
     Name: "Club Car (on North Avenue)",
     Neighborhood: "Station North",
     Type: "Cocktail Lounge, Pool Table, LGBT Bar",
@@ -509,6 +554,7 @@ export const locations = [
     Lon: -76.6170344,
   },
   {
+    id: "location-46",
     Name: "City Limits Sports Bar",
     Neighborhood: "Locust Point",
     Type: "Neighborhood Bar, Sports Bar",
@@ -520,6 +566,7 @@ export const locations = [
     Lon: -76.590799,
   },
   {
+    id: "location-47",
     Name: "Hull Street Blues",
     Neighborhood: "Locust Point",
     Type: "Neighborhood Pub, Shuffle Board",
@@ -531,6 +578,7 @@ export const locations = [
     Lon: -76.5920078,
   },
   {
+    id: "location-48",
     Name: "Wiley Gunter's",
     Neighborhood: "Locust Point",
     Type: "Sports Bar, Washington Commander's Bar",
@@ -542,6 +590,7 @@ export const locations = [
     Lon: -76.60223,
   },
   {
+    id: "location-49",
     Name: "W.C. Harlan",
     Neighborhood: "Remington",
     Type: "Speakeasy",
@@ -553,6 +602,7 @@ export const locations = [
     Lon: -76.6220817,
   },
   {
+    id: "location-50",
     Name: "Rye Craft Cocktails",
     Neighborhood: "Fells Point",
     Type: "Cocktail Bar",
@@ -564,6 +614,7 @@ export const locations = [
     Lon: -76.593501,
   },
   {
+    id: "location-51",
     Name: "Ministry of Brewing",
     Neighborhood: "Butchers Hill",
     Type: "Brewery, Beer Hall",
@@ -575,6 +626,7 @@ export const locations = [
     Lon: -76.5900816,
   },
   {
+    id: "location-52",
     Name: "Union Craft Brewing",
     Neighborhood: "Hampden",
     Type: "Brewery, Beer Hall/Garden",
@@ -586,6 +638,7 @@ export const locations = [
     Lon: -76.6444502,
   },
   {
+    id: "location-53",
     Name: "Brewer's Art",
     Neighborhood: "Mount Vernon",
     Type: "Fancy Brewpub, Modern European, Belgian",
@@ -597,6 +650,7 @@ export const locations = [
     Lon: -76.6161317,
   },
   {
+    id: "location-54",
     Name: "Monument City Brewing Company",
     Neighborhood: "Highlandtown",
     Type: "Brewery",
@@ -608,6 +662,7 @@ export const locations = [
     Lon: -76.5621268,
   },
   {
+    id: "location-55",
     Name: "Peabody Heights Brewery",
     Neighborhood: "Abell",
     Type: "Brewery",
@@ -619,6 +674,7 @@ export const locations = [
     Lon: -76.6104348,
   },
   {
+    id: "location-56",
     Name: "Diamondback Brewing Company",
     Neighborhood: "Locust Point",
     Type: "Brewery, Brewpub, Beer Garden",
@@ -631,6 +687,7 @@ export const locations = [
     Lon: -76.5974877,
   },
   {
+    id: "location-57",
     Name: "Guilford Hall Brewery",
     Neighborhood: "Station North",
     Type: "European Brewery and Restaurant and Biergarten",
@@ -642,6 +699,7 @@ export const locations = [
     Lon: -76.6120638,
   },
   {
+    id: "location-58",
     Name: "Ministry of Brewing",
     Neighborhood: "Butchers Hill",
     Type: "Brewery, Beer Hall",
@@ -652,8 +710,8 @@ export const locations = [
     Lat: 39.2906896,
     Lon: -76.5900816,
   },
-
   {
+    id: "location-59",
     Name: "Pitango Bakery + Cafe",
     Neighborhood: "Fells Point",
     Price: "$$",
@@ -663,6 +721,7 @@ export const locations = [
     Lon: -76.59096679999999,
   },
   {
+    id: "location-60",
     Name: "Koba Cafe",
     Neighborhood: "Federal Hill",
     Type: "Breakfast, Cafe",
@@ -672,6 +731,7 @@ export const locations = [
     Lon: -76.604075,
   },
   {
+    id: "location-61",
     Name: "Order and Chaos",
     Neighborhood: "Federal Hill",
     Type: "Coffee Shop, Cafe",
@@ -681,6 +741,7 @@ export const locations = [
     Lon: -76.6027101,
   },
   {
+    id: "location-62",
     Name: "Mindpub",
     Neighborhood: "Federal Hill",
     Type: "Brunch, Cafe, Breakfast Sandwiches",
@@ -690,6 +751,7 @@ export const locations = [
     Lon: -76.6054152,
   },
   {
+    id: "location-63",
     Name: "Daily Grind",
     Neighborhood: "Fells Point",
     Type: "Coffee Shop, Cafe",
@@ -699,6 +761,7 @@ export const locations = [
     Lon: -76.59178469999999,
   },
   {
+    id: "location-64",
     Name: "Ovenbird",
     Neighborhood: "Little Italy",
     Type: "Bakery, Cafe",
@@ -708,8 +771,3 @@ export const locations = [
     Lon: -76.6007901,
   },
 ];
-
-
-
-
-

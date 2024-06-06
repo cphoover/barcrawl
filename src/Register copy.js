@@ -29,12 +29,12 @@ const Register = ({ onRegistered }) => {
       .upload(filePath, photo);
 
     if (uploadError) {
-      console.log("Error uploading file: ", uploadError);
+      debug("Error uploading file: ", uploadError);
       alert("Upload failed: " + uploadError.message);
       setUploading(false);
       return;
     }
-console.log('uploadData', uploadData)
+debug('uploadData', uploadData)
     // Save user data to your table
     const { data, error } = await supabase
       .from("users")
@@ -42,12 +42,12 @@ console.log('uploadData', uploadData)
 
     setUploading(false);
 
-    console.log({ data, error });
+    debug({ data, error });
 
     if (error) {
       alert("Error registering user: " + error.message);
     } else {
-      console.log("User registered:", data);
+      debug("User registered:", data);
       // onRegistered(data[0]);
     }
   };

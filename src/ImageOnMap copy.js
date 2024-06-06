@@ -38,41 +38,13 @@ const MarkersWithZIndex = () => {
   const mapRef = useRef(null);
   const [zIndexOrder, setZIndexOrder] = useState(true);
 
-  //   const mapCallback = useCallback((mapNode) => {
-  //     if (!mapNode) return;
-  //     console.log('++qwer mapNode', mapNode);
-  //     const map = mapNode.getMap();
-
-  //     map.on('load', () => {
-  //       console.log('map loaded++');
-  //       const markersData = [
-  //         { id: 1, longitude: -77.0535, latitude: 38.8875, src: '/images/vector-markers/boobs.svg', zIndex: zIndexOrder ? 1 : 0 },
-  //         { id: 2, longitude: -77.053, latitude: 38.8875, src: '/images/vector-markers/food.svg', zIndex: zIndexOrder ? 0 : 1 },
-  //       ];
-
-  //       markersData.forEach(markerData => {
-  //         const el = document.createElement('div');
-  //         el.style.backgroundImage = `url(${markerData.src})`;
-  //         el.style.width = '24px';
-  //         el.style.height = '24px';
-  //         el.style.backgroundSize = 'contain';
-  //         el.style.zIndex = markerData.zIndex;
-
-  //         console.log('++qwer adding to map');
-
-  //         new mapboxgl.Marker(el)
-  //           .setLngLat([markerData.longitude, markerData.latitude])
-  //           .addTo(map);
-  //       });
-  //     });
-  //   });
-
+ 
   const mapNodeCB = useCallback((mapNode) => {
     if (!mapNode) return;
 
-    console.log("++qwer mapNode", mapNode);
+    
     const map = mapNode.getMap();
-    console.log("++qwer map", map);
+    
 
     // order matters here... last one will be on top
     const markersData = [
@@ -101,7 +73,6 @@ const MarkersWithZIndex = () => {
       el.style.backgroundSize = "contain";
       el.style.zIndex = markerData.zIndex;
 
-      console.log("++qwer adding to map", i);
 
       new mapboxgl.Marker(el)
         .setLngLat([markerData.longitude, markerData.latitude])

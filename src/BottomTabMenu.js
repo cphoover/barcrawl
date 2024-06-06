@@ -4,6 +4,7 @@ import MapIcon from "./icons/map";
 import CameraIcon from "./icons/camera";
 import TrophyIcon from "./icons/trophy";
 import { useRouter } from "./Router";
+import PlayerIcon from "./icons/player";
 
 const TabBarContainer = styled.div`
   display: flex;
@@ -65,9 +66,9 @@ function BottomTabMenu() {
         }}
       >
         <IconContainer>
-          <TrophyIcon />
+          <PlayerIcon />
         </IconContainer>
-        <TabLabel>Rankings</TabLabel>
+        <TabLabel>Players</TabLabel>
       </TabItem>
       <TabItem className={isCurrentPage("photos") ? "active" : ""}
         onClick={() => {

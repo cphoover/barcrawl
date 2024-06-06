@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import CameraIcon from "../icons/camera";
 import { Container, Content, Terms, AppHeader } from "../Layout";
 import MainHeader from "../MainHeader";
 import BottomTabMenu from "../BottomTabMenu";
+import Legal from "../Legal";
+import { getNotification, notificationsMap } from "../objectives";
+import { useCompletions } from "../Providers/CompletionsProvider";
+import { useMyUser } from "../Providers/MyUserProvider";
+import AirHornIcon from "../icons/airhorn";
+import { useOtherUsers } from "../Providers/OtherUsersProvider";
+import { debug, formatLastUpdatedTime } from "../utils";
 
 const NotificationsList = styled.ul`
   list-style-type: none;
@@ -90,26 +97,55 @@ const BackButton = styled.button`
 `;
 
 const NotificationsPage = () => {
+  const { completions } = useCompletions();
+  debug("completions", completions);
+  const { updateLastVisited } = useCompletions();
+  const { userId } = useMyUser();
+  const { otherUsersDetails } = useOtherUsers();
+
+  const reversedOrder = [...completions].reverse();
+
+  useEffect(() => {
+    updateLastVisited();
+  });
+
   return (
     <>
       <Container>
         <MainHeader title="Notifications" />
         <Content>
           <NotificationsList>
-            {notifications.map((notification, index) => {
+            {reversedOrder.map((completion) => {
+              debug(completion.user_id);
+              debug("otherUsersDetails", otherUsersDetails);
+              debug(
+                "user detail",
+                otherUsersDetails.get(completion.user_id)
+              );
               return (
-                <NotificationLine
-                  key={index}
-                  className={notification.isMyAction ? "active" : ""}
-                >
-                  {getIcon(notification.type, notification.objectiveType)}
-                  {notification.message}
-                  &nbsp; 💩
-                </NotificationLine>
+                <>
+                  {getNotification(
+                    completion.completion_id,
+                    completion.user.username
+                  ) && (
+                    <NotificationLine
+                      key={completion.id}
+                      className={completion.user_id === userId ? "active" : ""}
+                    >
+                      <AirHornIcon />
+                      {formatLastUpdatedTime(completion)} - 
+                      {getNotification(
+                        completion.completion_id,
+                        completion.user.username
+                      )}
+                      &nbsp; 💩
+                    </NotificationLine>
+                  )}
+                </>
               );
             })}
           </NotificationsList>
-          <Terms>Terms of Service | Privacy Policy</Terms>
+          <Legal />
         </Content>
       </Container>
       <BottomTabMenu />

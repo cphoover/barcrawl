@@ -5,6 +5,8 @@ import BottomTabMenu from "../BottomTabMenu";
 import { Gallery } from "react-grid-gallery";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import Legal from "../Legal";
+import { useCompletions } from "../Providers/CompletionsProvider";
 
 const images = [
   {
@@ -30,8 +32,13 @@ const images = [
   },
 ];
 
-const LeaderboardScreen = () => {
+const PhotosScreen = () => {
+  const { completions } = useCompletions();
   const [index, setIndex] = useState(-1);
+
+  const photos = completions
+    .filter((completion) => completion.photo_url)
+    .map(({ photo_url }) => ({ src: photo_url }));
 
   const handleClick = (index, item) => setIndex(index);
   return (
@@ -40,16 +47,17 @@ const LeaderboardScreen = () => {
         <MainHeader title="Photos" />
         <Content>
           <Gallery
-            images={images}
+            images={photos}
             onClick={handleClick}
             enableImageSelection={false}
           />
           <Lightbox
-            slides={images}
+            slides={photos}
             open={index >= 0}
             index={index}
             close={() => setIndex(-1)}
           />
+          <Legal />
         </Content>
       </Container>
       <BottomTabMenu />
@@ -57,4 +65,4 @@ const LeaderboardScreen = () => {
   );
 };
 
-export default LeaderboardScreen;
+export default PhotosScreen;

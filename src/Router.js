@@ -1,12 +1,28 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  Suspense,
+} from "react";
 import LeaderboardScreen from "./Screens/LeaderboardScreen";
 import MainMapScreen from "./Screens/MainMapScreen";
+// import MainMapScreen from "./Screens/MainMapScreenUseReactMarkers";
 import NotificationsScreen from "./Screens/NotificationsScreen";
 import ObjectivesScreen from "./Screens/ObjectivesScreen";
 import RecordGoalScreen from "./Screens/RecordGoalScreen";
 import RegisterScreen from "./Screens/RegisterScreen";
-import PhotosScreen from "./Screens/PhotosScreen";
+
 import SettingsScreen from "./Screens/SettingsScreen";
+import RedirectUnregistered from "./RedirectUnregistered";
+import { MapFiltersProvider } from "./Providers/MapFiltersProvider";
+import { OtherUsersProvider } from "./Providers/OtherUsersProvider";
+import { OnlineUsersProvider } from "./Providers/OnlineUsersProvider";
+import { LocationProvider } from "./Providers/LocationProvider";
+import { lazy } from "react";
+import LogItScreen from "./Screens/LogItScreen";
+
+const PhotosScreen = lazy(() => import("./Screens/PhotosScreen"));
 
 // Create a context
 const RouterContext = createContext();
@@ -30,26 +46,35 @@ function Router() {
 
   // Function to navigate to a different page
   const goto = (page) => {
+    // scroll to top of the page
+
     window.location.hash = page;
+    window.scrollTo(0, 0);
   };
 
   // Function to render the component based on the current page
   const renderRoute = () => {
     switch (currentPage) {
+      case "register":
+        return <RegisterScreen />;
       case "leaderboard":
         return <LeaderboardScreen />;
       case "map":
         return <MainMapScreen />;
+      case "log-it":
+        return <LogItScreen />;
       case "notifications":
         return <NotificationsScreen />;
       case "objectives":
         return <ObjectivesScreen />;
       case "record":
         return <RecordGoalScreen />;
-      case "register":
-        return <RegisterScreen />;
       case "photos":
-        return <PhotosScreen />;
+        return (
+          <Suspense fallback={<div>Loading...</div>}>
+            <PhotosScreen />
+          </Suspense>
+        );
       case "settings":
         return <SettingsScreen />;
       default:
@@ -65,10 +90,20 @@ function Router() {
 
   return (
     <RouterContext.Provider value={contextValue}>
-      {renderRoute()}
+      <RedirectUnregistered>{renderRoute()}</RedirectUnregistered>
     </RouterContext.Provider>
   );
 }
+
+const ProvidersHOC = ({ children }) => (
+  <MapFiltersProvider>
+    <OtherUsersProvider>
+      <OnlineUsersProvider>
+        <LocationProvider>{children}</LocationProvider>
+      </OnlineUsersProvider>
+    </OtherUsersProvider>
+  </MapFiltersProvider>
+);
 
 // Export the context for use in other components
 export const useRouter = () => useContext(RouterContext);

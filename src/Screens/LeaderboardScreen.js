@@ -13,9 +13,14 @@ import {
   AppHeader,
   SectionTitle,
 } from "../Layout";
-import PersonMarker from "../PersonMarker";
+import PersonMarker from "../PersonAvatar";
 import MainHeader from "../MainHeader";
 import BottomTabMenu from "../BottomTabMenu";
+import Legal from "../Legal";
+import { useOtherUsers } from "../Providers/OtherUsersProvider";
+import { useMyUser } from "../Providers/MyUserProvider";
+import { useCompletions } from "../Providers/CompletionsProvider";
+import { debug } from "../utils";
 
 const BackButton = styled.button`
   background: none;
@@ -86,79 +91,89 @@ const Score = styled.div`
   margin-top: 4px;
 `;
 
-const scoreData = [
-  {
-    name: "John Doe",
-    score: 100,
-    photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
-  },
-  {
-    name: "Jane Doe",
-    score: 90,
-    photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
-  },
-  {
-    name: "John Smith",
-    score: 80,
-    photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
-  },
-  {
-    name: "Jane Smith",
-    score: 70,
-    myAction: true,
-    photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
-  },
-  {
-    name: "John Johnson",
-    score: 60,
-    photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
-  },
-  {
-    name: "Jane Johnson",
-    score: 50,
-    photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
-  },
-  {
-    name: "John Brown",
-    score: 40,
-    photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
-  },
-  {
-    name: "Jane Brown",
-    score: 30,
-    photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
-  },
-];
+// const scoreData = [
+//   {
+//     name: "John Doe",
+//     score: 100,
+//     photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
+//   },
+//   {
+//     name: "Jane Doe",
+//     score: 90,
+//     photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
+//   },
+//   {
+//     name: "John Smith",
+//     score: 80,
+//     photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
+//   },
+//   {
+//     name: "Jane Smith",
+//     score: 70,
+//     myAction: true,
+//     photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
+//   },
+//   {
+//     name: "John Johnson",
+//     score: 60,
+//     photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
+//   },
+//   {
+//     name: "Jane Johnson",
+//     score: 50,
+//     photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
+//   },
+//   {
+//     name: "John Brown",
+//     score: 40,
+//     photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
+//   },
+//   {
+//     name: "Jane Brown",
+//     score: 30,
+//     photoUrl: "https://picsum.photos/200?asdf" + Math.random(),
+//   },
+// ];
 
 const LeaderboardScreen = () => {
+  const { otherUsersPositions, otherUsersDetails, UserHelpers } =
+    useOtherUsers();
+
+  const { userId: myUserId } = useMyUser();
+  const { userScores } = useCompletions();
+  debug("userScores", userScores);
+
+  const usersArray = [...otherUsersDetails].map((x) => x[1]);
+
   return (
     <>
-    <Container>
-      <MainHeader title="Leaderboard" />
-      <Content>
-        {/* <SectionTitle>Leaderboard</SectionTitle> */}
+      <Container>
+        <MainHeader title="Leaderboard" />
+        <Content>
+          {/* <SectionTitle>Leaderboard</SectionTitle> */}
 
-        <CardList>
-          {scoreData.map((data, index) => (
-            <CardLine key={index} className={data.myAction ? "active" : ""}>
-              <ScoreWrapper>
-                <PhotoWrapper>
-                  <PersonMarker photoUrl={data.photoUrl} />
-                </PhotoWrapper>
-                <ScoreDetails>
-                  <PersonName>{data.name}</PersonName>
-                  <Score>Score: {data.score} points</Score>
-                </ScoreDetails>
-              </ScoreWrapper>
-            </CardLine>
-          ))}
-        </CardList>
-
-        <Terms>Terms of Service | Privacy Policy</Terms>
-      </Content>
-     
-    </Container>
-    <BottomTabMenu />
+          <CardList>
+            {userScores.map((user, index) => (
+              <CardLine
+                key={user.userId}
+                className={user.userId === myUserId ? "active" : ""}
+              >
+                <ScoreWrapper>
+                  <PhotoWrapper>
+                    <PersonMarker photoUrl={user.avatarSmall} />
+                  </PhotoWrapper>
+                  <ScoreDetails>
+                    <PersonName>{user.username}</PersonName>
+                    <Score>Score: {user.scores} points</Score>
+                  </ScoreDetails>
+                </ScoreWrapper>
+              </CardLine>
+            ))}
+          </CardList>
+          <Legal />
+        </Content>
+      </Container>
+      <BottomTabMenu />
     </>
   );
 };

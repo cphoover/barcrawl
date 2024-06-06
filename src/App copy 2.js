@@ -40,15 +40,15 @@ function App() {
       })
       .on("presence", { event: "sync" }, () => {
         const state = presenceChannel.presenceState();
-        console.log("asdf sync state", state);
+    
         setOnlineUsers(new Set(Object.keys(state)));
       })
       .on("presence", { event: "join" }, ({ key }) => {
-        console.log("asdf join", { key });
+        
         setOnlineUsers((prev) => new Set([...prev, key]));
       })
       .on("presence", { event: "leave" }, ({ key }) => {
-        console.log("asdf leave", { key });
+       
         setOnlineUsers((prev) => {
           const updated = new Set(prev);
           updated.delete(key);
@@ -60,7 +60,7 @@ function App() {
       id: userId, // Track the user's presence using their user_id
     };
 
-    console.log({ trackPayload });
+    
     presenceChannel.track(trackPayload);
 
     return () => {
@@ -134,7 +134,7 @@ function App() {
       <Map>
         {filteredLocations.map(
           (location, idx) => (
-            console.log({ location }),
+            
             (
               <Marker
                 key={idx}

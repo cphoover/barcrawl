@@ -7,6 +7,12 @@ import LeaderboardScreen from "./Screens/LeaderboardScreen";
 import ObjectivesScreen from "./Screens/ObjectivesScreen";
 import BottomTabMenu from "./BottomTabMenu";
 import Router from "./Router";
+import { LocationProvider } from "./Providers/LocationProvider";
+import { OnlineUsersProvider } from "./Providers/OnlineUsersProvider";
+import { OtherUsersProvider } from "./Providers/OtherUsersProvider";
+import { MapFiltersProvider } from "./Providers/MapFiltersProvider";
+import { MyUserProvider } from "./Providers/MyUserProvider";
+import { CompletionsProvider } from "./Providers/CompletionsProvider";
 
 const App = () => {
   const [user, setUser] = useState(null); // State to hold user data
@@ -40,7 +46,19 @@ const App = () => {
 
 const AppWrapper = ({ children }) => (
   <>
-    <Router />
+    <MyUserProvider>
+      <MapFiltersProvider>
+        <CompletionsProvider>
+          <OtherUsersProvider>
+            <OnlineUsersProvider>
+              <LocationProvider>
+                <Router />
+              </LocationProvider>
+            </OnlineUsersProvider>
+          </OtherUsersProvider>
+        </CompletionsProvider>
+      </MapFiltersProvider>
+    </MyUserProvider>
   </>
 );
 

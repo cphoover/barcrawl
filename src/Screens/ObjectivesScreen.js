@@ -14,11 +14,16 @@ import {
   AppHeader,
   SectionTitle,
 } from "../Layout";
-import PersonMarker from "../PersonMarker";
+import PersonMarker from "../PersonAvatar";
 import GearIcon from "../icons/gear";
 import MainHeader from "../MainHeader";
 import ChekmarkIcon from "../icons/checkmark";
 import RightArrowIcon from "../icons/right-arrow";
+import Legal from "../Legal";
+import BottomTabMenu from "../BottomTabMenu";
+import objectivesData from "../objectives";
+import LogItScreen from "./LogItScreen";
+import { debug } from "../utils";
 
 const BackButton = styled.button`
   background: none;
@@ -89,30 +94,6 @@ const Score = styled.div`
   margin-top: 4px;
 `;
 
-const bachelorPartyScavengerHuntObjectives = [
-  {
-    title: "Take a shot of Malort",
-    description: "You know you want to",
-    score: 10,
-  },
-  {
-    title: "Take a shot of Tequila",
-    description: "You know you want to",
-    score: 10,
-    completed: true,
-  },
-  {
-    title: "Take a photo with a stranger",
-    description: "You know you want to",
-    score: 10,
-  },
-  {
-    title: "Take a photo with a bartender",
-    description: "You know you want to",
-    score: 10,
-  },
-];
-
 const ObjectiveTitle = styled.div`
   font-size: 18px;
   font-family: "Montserrat";
@@ -137,34 +118,62 @@ const RightIcon = styled.div`
 `;
 
 const ObjectivesScreen = () => {
+  const [selectedObjective, setSelectedObjective] = useState(null);
+  if (selectedObjective) {
+    return (
+      <LogItScreen
+        objectiveId={selectedObjective}
+        onSave={() => setSelectedObjective(null)}
+      />
+    );
+  }
   return (
-    <Container>
-      <MainHeader title="Objectives" />
-      <Content>
-        <SectionTitle>Record your debauchery</SectionTitle>
+    <ObjectivesList
+      onSelectObjective={(objectiveId) => {
+        debug({ objectiveId });
+        setSelectedObjective(objectiveId);
+      }}
+    />
+  );
+};
 
-        <CardList>
-          {bachelorPartyScavengerHuntObjectives.map((objective, index) => (
-            <CardLine
-              key={index}
-              className={objective.completed ? "active" : ""}
-            >
-              <ObjectiveTitle>
-                {objective.title}{" "}
-                <RightIcon>
-                  {objective.completed ? <ChekmarkIcon /> :  <RightArrowIcon />}
-                </RightIcon>
-              </ObjectiveTitle>
-              <ObjectiveDescription>
-                {objective.score} pts - {objective.description}
-              </ObjectiveDescription>
-            </CardLine>
-          ))}
-        </CardList>
+const ObjectivesList = ({ onSelectObjective }) => {
+  return (
+    <>
+      <Container>
+        <MainHeader title="Objectives" />
+        <Content>
+          <SectionTitle>Record your debauchery</SectionTitle>
 
-        <Terms>Terms of Service | Privacy Policy</Terms>
-      </Content>
-    </Container>
+          <CardList>
+            {objectivesData.map((objective, index) => (
+              <CardLine
+                key={index}
+                className={objective.completed ? "active" : ""}
+                onClick={() => onSelectObjective(objective.id)}
+              >
+                <ObjectiveTitle>
+                  {objective.title}{" "}
+                  <RightIcon>
+                    {objective.completed ? (
+                      <ChekmarkIcon />
+                    ) : (
+                      <RightArrowIcon />
+                    )}
+                  </RightIcon>
+                </ObjectiveTitle>
+                <ObjectiveDescription>
+                  {objective.points} pts - {objective.description}
+                </ObjectiveDescription>
+              </CardLine>
+            ))}
+          </CardList>
+
+          <Legal />
+        </Content>
+      </Container>
+      <BottomTabMenu />
+    </>
   );
 };
 

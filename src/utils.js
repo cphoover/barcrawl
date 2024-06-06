@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { format, parseISO } from "date-fns";
 
 export const getUserId = () => {
   let userId = localStorage.getItem("userId");
@@ -7,6 +8,19 @@ export const getUserId = () => {
     localStorage.setItem("userId", userId);
   }
   return userId;
+};
+
+export const isRecentUpdate = (obj) => {
+  const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+  const createdAt = new Date(obj.created_at);
+  const updatedAt = new Date(obj.updated_at);
+  return createdAt > fiveMinutesAgo || updatedAt > fiveMinutesAgo;
+};
+
+export const formatLastUpdatedTime = (data) => {
+  const timestamp = data.updated_at || data.created_at;
+  const date = parseISO(timestamp);
+  return format(date, "h:mmaaaa").replace("a.m.", "am").replace("p.m.", "pm"); // 'h:mm aaaa' is the format string for "hour:minute AM/PM"
 };
 
 export const getMapMarker = (category) => {
@@ -60,3 +74,9 @@ export const getMapMarker = (category) => {
 //       return '/images/markers/default.svg';
 //   }
 // }
+
+export const debug = (...args) => {
+  if (process.env.NODE_ENV === "development") {
+    console.log(...args);
+  }
+};
