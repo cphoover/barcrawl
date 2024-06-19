@@ -22,7 +22,7 @@ const objectivesData = [
     id: "fake-proposal",
     title: "Pseudo Proposal",
     description: "Stage a fake proposal in a public place.",
-    points: 200,
+    points: 100,
   },
   {
     id: "costume-change",
@@ -92,7 +92,7 @@ const objectivesData = [
     id: "giant-slayer",
     title: "Giant Slayer",
     description: "Catch the biggest fish on the trip.",
-    points: 500,
+    points: 400,
   },
   {
     id: "get-a-boner",
